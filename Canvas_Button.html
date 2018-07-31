@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<style>
+</style>
+
+<body>
+  	<canvas id="myCanvas" width="500" height="500"></canvas>
+  
+  
+  
+<script>
+       	
+		var c = document.getElementById("myCanvas");
+        	var ctx = c.getContext("2d");
+
+  
+    // MID CIRCLESS
+		var radius3 =300
+		var radius2 = 15
+		var radius1 = 70
+		var theta = 45 * Math.PI/190
+		var dy = radius1 * Math.sin (theta)
+		var dx = radius1 * Math.cos (theta)
+  
+  //SMALL CIRCLE
+		var centerx = 250;
+		var centery = 250;
+		var side = 300;
+		var xpos = 255-side/2 ;
+		var ypos = 250 - side / 2;
+		var radius = 20
+
+  //Lines	
+		var Fa = 45/180*Math.PI
+		var ry = radius3 * Math.sin (Fa)
+		var rx = radius3 * Math.cos (Fa)
+		var xp = 9;
+ 		
+		var fillstyle2 = "Chartreuse";
+
+function start() {
+	xp = 0.7/9
+}
+function stop() {
+	xp = 0
+}
+		
+function increase() {
+	xp = xp+0.4/5
+
+}
+
+function decrease() {
+	xp = xp-0.2/5
+
+}
+function Blue() {
+	fillstyle2 = "Blue"
+
+}
+function Pink() {
+	fillstyle2 = "Pink"
+}
+
+		setInterval(animate,90); //speed     
+ 
+function animate()
+{
+
+		ctx.clearRect(0,0,c.width,c.height)
+	
+  //Square
+ 	ctx.rect(xpos ,ypos, side, side); 
+	ctx.strokeStyle="red"; 
+	ctx.stroke();  
+
+
+  
+	//
+  
+  
+		
+	drawCircle(xpos,ypos,radius) ;
+	drawCircle(xpos+side,ypos,radius) ;
+	drawCircle(xpos,ypos+side,radius) ;
+	drawCircle(xpos+side,ypos+side,radius) ;        
+
+  //SMALL circle
+ 
+		theta = theta +xp
+		dx = radius1 * Math.sin (theta)
+		dy = radius1 * Math.cos (theta)
+	
+	drawCircle(centerx +dx, centery -dy , radius2) ;
+	drawCircle(centerx -dx, centery +dy , radius2) ;
+	drawCircle(centerx +dy, centery +dx , radius2) ;
+	drawCircle(centerx -dy, centery -dx , radius2) ;
+
+       
+  
+///lines
+        ctx.beginPath();
+        
+        ctx.moveTo(centerx,centery);
+        ctx.lineTo(centerx-ry,centery-rx);
+       
+	ctx.moveTo(centerx,centery);
+        ctx.lineTo(centerx+ry,centery+rx);
+
+	ctx.moveTo(centerx,centery);
+        ctx.lineTo(centerx+ry,centery-rx);
+
+	ctx.moveTo(centerx,centery);
+        ctx.lineTo(centerx-ry,centery+rx);
+
+        ctx.closePath();
+        ctx.strokeStyle ="black"
+	ctx.stroke();
+  
+  
+  ctx.beginPath();
+        
+	ctx.arc(centerx,centery,radius1,0,2*Math.PI,false);
+        
+        ctx.closePath();
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "Chartreuse";
+	ctx.stroke();
+
+  
+  
+		function drawCircle (x,y,r) {
+	ctx.beginPath()
+        
+        ctx.arc(x,y,r,0,2*Math.PI,true);
+   		
+	ctx.closePath()
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = fillstyle2 ;
+        ctx.stroke()
+        ctx.fill()
+ 
+}
+	
+  
+	ctx.strokeStyle ="blue";
+        ctx.strokeRect(0,0,500,500);
+
+}
+var canvas, ctx, rotateNum = Math.PI/8;
+function init(){
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext("2d");
+    ctx.fillRect(canvas.width/2-600,canvas.height/2-600,700,700);
+
+    canvas.addEventListener('click',rotateRect,true);
+}	
+
+function rotateRect(e) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.save();   
+    ctx.translate(canvas.width/2,canvas.height/2); 
+  
+    ctx.rotate(rotateNum);                             ctx.fillRect(50,50,400,400);
+    ctx.restore();                                 
+  
+    rotateNum+=Math.PI/9;                          
+}
+
+  
+
+      
+</script>
+	<button onclick= start()> Start </button>
+	<button onclick= stop()> Stop </button>
+	<button onclick= increase()> Increase </button>
+	<button onclick= decrease()> Decrease </button>
+	<button onclick= Blue()> Blue </button>
+	<button onclick= Pink()> Pink </button>
+	
+</body>
+</html>
+
